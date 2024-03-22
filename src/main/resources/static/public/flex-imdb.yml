@@ -1,0 +1,358 @@
+openapi: 3.0.0
+info:
+  description: IMDB API
+  version: 1.0.0
+  title: Flex-IMDB API
+
+servers:
+  - description: LOCAL
+    url: http://localhost:8080/flex-imdb/api/
+
+tags:
+  - name: Flex-IMDB
+    description: This API provides a service to retrieve information about movies but also actors and genres
+
+paths:
+  /actors:
+    get:
+      tags:
+        - actors
+      operationId: getActors
+      responses:
+        '200':
+          description: Actors found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActorsDTO'
+        '404':
+          description: No actors found
+
+  /actor:
+    post:
+      tags:
+        - actors
+      operationId: saveActor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActorDTO'
+      responses:
+        '201':
+          description: Actor created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActorDTO'
+        '400':
+          description: Actor cannot be created/updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+  /actor/{actorId}:
+    parameters:
+      - name: actorId
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - actors
+      operationId: getActor
+      responses:
+        '200':
+          description: Actors found by the id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActorDTO'
+        '404':
+          description: No actor found by the id
+    put:
+      tags:
+        - actors
+      operationId: updateActor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActorDTO'
+      responses:
+        '200':
+          description: Actor created/updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActorDTO'
+        '400':
+          description: Actor cannot be created/updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '404':
+          description: No actor found by the id
+    delete:
+      tags:
+        - actors
+      operationId: deleteActor
+      responses:
+        '204':
+          description: Actor is deleted
+
+        '400':
+          description: Actor cannot be created/updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '404':
+          description: No actor found by the id
+  /actor/{actorId}/movies:
+    parameters:
+      - name: actorId
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - actors
+      operationId: getMoviesForActor
+      responses:
+        '200':
+          description: Movies found for the actor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoviesDTO'
+        '404':
+          description: No actor found by the id of no movies for the actor
+    post:
+      tags:
+        - actors
+      operationId: addMoviesForActor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+      responses:
+        '201':
+          description: Movies added for actor
+        '400':
+          description: Movie cannot be added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '404':
+          description: No movie/actors found by id
+  /movies:
+    get:
+      tags:
+        - movies
+      operationId: getMovies
+      responses:
+        '200':
+          description: Movies found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoviesDTO'
+        '404':
+          description: No movies found
+  /movie:
+    post:
+      tags:
+        - movies
+      operationId: saveMovie
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovieDTO'
+      responses:
+        '201':
+          description: Movie created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieDTO'
+        '400':
+          description: Movie cannot be created/updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+
+  /movie/{movieId}:
+    parameters:
+      - name: movieId
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - movies
+      operationId: getMovie
+      responses:
+        '200':
+          description: Movies found by the id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieDTO'
+        '404':
+          description: No movie found by the id
+
+    put:
+      tags:
+        - movies
+      operationId: updateMovie
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovieDTO'
+      responses:
+        '200':
+          description: Movie created/updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieDTO'
+
+        '400':
+          description: Movie cannot be created/updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+
+        '404':
+          description: No movie found by the id
+    delete:
+      tags:
+        - movies
+      operationId: deleteMovie
+      responses:
+        '204':
+          description: Movie is deleted
+
+        '400':
+          description: Movie cannot be created/updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '404':
+          description: No movie found by the id
+
+  /movie/{movieId}/actors:
+    parameters:
+      - name: movieId
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - movies
+      operationId: getActorsForMovie
+      responses:
+        '200':
+          description: Actors found for the movie
+          content:
+            application/json:
+              schema:
+
+                $ref: '#/components/schemas/ActorsDTO'
+        '404':
+          description: No movie found by the id of no actors for the movie
+    post:
+      tags:
+        - movies
+      operationId: addActorsForMovie
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+      responses:
+        '201':
+          description: Actors added for movie
+        '400':
+          description: Actors cannot be added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '404':
+          description: No movie/actors found by id
+
+components:
+  schemas:
+    ActorsDTO:
+      type: array
+      items:
+        $ref: '#/components/schemas/ActorDTO'
+
+    MoviesDTO:
+      type: array
+      items:
+        $ref: '#/components/schemas/MovieDTO'
+
+    ActorDTO:
+      type: object
+      required:
+        - lastName
+        - firstName
+      properties:
+        id:
+          type: integer
+        lastName:
+          type: string
+        firstName:
+          type: string
+
+    MovieDTO:
+      type: object
+      required:
+        - title
+        - genre
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        genre:
+          $ref: '#/components/schemas/GenreDTO'
+
+    GenreDTO:
+      type: string
+      enum:
+        - thriller
+        - adventure
+        - comedy
+        - horror
+
+    ErrorDTO:
+      type: object
+      properties:
+        message:
+          type: string
