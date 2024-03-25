@@ -61,8 +61,6 @@ Flex IMDb incorporates all the best practices followed by our Flex Team, ensurin
 ### OpenAPI Code Generation:
 - 🛠️ **openapi-generator-maven-plugin**: Maven plugin for generating API clients, server stubs, and documentation from an OpenAPI 3 (Swagger) specification.
 
-These libraries serve various purposes including dependency management, data persistence, web development, testing, code generation, and code coverage reporting, ensuring the project's robustness, maintainability, and scalability.
-
 ## Contributing
 
 Contributions to Flex IMDb are welcome! Feel free to open an issue or submit a pull request.
