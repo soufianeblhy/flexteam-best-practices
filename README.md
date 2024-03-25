@@ -1,4 +1,4 @@
-# 🎬 Flex IMDb
+# 🎬 Flex IMDb (DRAFT !)
 
 Flex IMDb is a project aimed at managing actors and films with CRUD operations, allowing users to establish relationships between them. This service is implemented in REST using Spring Boot and H2 database, following the hexagonal architecture.
 
