@@ -27,8 +27,6 @@ paths:
                 $ref: '#/components/schemas/ActorsDTO'
         '404':
           description: No actors found
-
-  /actor:
     post:
       tags:
         - actors
@@ -52,7 +50,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /actor/{actorId}:
+  /actors/{actorId}:
     parameters:
       - name: actorId
         in: path
@@ -104,7 +102,6 @@ paths:
       responses:
         '204':
           description: Actor is deleted
-
         '400':
           description: Actor cannot be created/updated
           content:
@@ -113,7 +110,7 @@ paths:
                 $ref: '#/components/schemas/ErrorDTO'
         '404':
           description: No actor found by the id
-  /actor/{actorId}/movies:
+  /actors/{actorId}/movies:
     parameters:
       - name: actorId
         in: path
@@ -146,7 +143,7 @@ paths:
               items:
                 type: integer
       responses:
-        '201':
+        '204':
           description: Movies added for actor
         '400':
           description: Movie cannot be added
@@ -170,7 +167,6 @@ paths:
                 $ref: '#/components/schemas/MoviesDTO'
         '404':
           description: No movies found
-  /movie:
     post:
       tags:
         - movies
@@ -195,7 +191,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
 
-  /movie/{movieId}:
+  /movies/{movieId}:
     parameters:
       - name: movieId
         in: path
@@ -260,7 +256,7 @@ paths:
         '404':
           description: No movie found by the id
 
-  /movie/{movieId}/actors:
+  /movies/{movieId}/actors:
     parameters:
       - name: movieId
         in: path
@@ -277,7 +273,6 @@ paths:
           content:
             application/json:
               schema:
-
                 $ref: '#/components/schemas/ActorsDTO'
         '404':
           description: No movie found by the id of no actors for the movie
@@ -294,7 +289,7 @@ paths:
               items:
                 type: integer
       responses:
-        '201':
+        '204':
           description: Actors added for movie
         '400':
           description: Actors cannot be added

@@ -5,7 +5,6 @@ import be.flexteam.flex_imdb.domain.exception.NotFoundException;
 import be.flexteam.flex_imdb.domain.exception.SaveException;
 import be.flexteam.flex_imdb.domain.port.input.ActorServicePort;
 import be.flexteam.flex_imdb.domain.port.input.MovieServicePort;
-import be.flexteam.flex_imdb.flex_imdb.rest.v1.api.MovieApi;
 import be.flexteam.flex_imdb.flex_imdb.rest.v1.api.MoviesApi;
 import be.flexteam.flex_imdb.flex_imdb.rest.v1.model.ActorDTO;
 import be.flexteam.flex_imdb.flex_imdb.rest.v1.model.MovieDTO;
@@ -25,7 +24,7 @@ import java.util.Objects;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class MovieController implements MovieApi, MoviesApi {
+public class MovieController implements MoviesApi {
 
     private final ActorServicePort actorServicePort;
     private final MovieServicePort movieServicePort;
@@ -38,7 +37,7 @@ public class MovieController implements MovieApi, MoviesApi {
             for (Integer actorId : actorIds) {
                 movieServicePort.addActorForMovie(actorId, movieId);
             }
-            return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUri()).build();
+            return ResponseEntity.noContent().location(ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUri()).build();
         } catch (NotFoundException e) {
             log.error("Error occured",e);
             return ResponseEntity.notFound().build();
