@@ -29,7 +29,7 @@ public abstract class GenericPersistencePortImpl<D,J extends JpaRepository<D,I>,
     }
 
     @Override
-    public T get(I id) throws NotFoundException {
+    public T get(I id) {
         try {
             return jpaRepository.findById(id).map(this::map).orElseThrow(() -> new NotFoundException("id=" + id + " is not found in DB"));
         }catch (IllegalArgumentException e){
@@ -38,7 +38,7 @@ public abstract class GenericPersistencePortImpl<D,J extends JpaRepository<D,I>,
     }
 
     @Override
-    public T save(T domainModel) throws SaveException {
+    public T save(T domainModel) {
         try {
             return map(jpaRepository.save(map(domainModel)));
         } catch (IllegalArgumentException|OptimisticLockException e) {
@@ -47,7 +47,7 @@ public abstract class GenericPersistencePortImpl<D,J extends JpaRepository<D,I>,
     }
 
     @Override
-    public T update(T domainModel, boolean partial) throws NotFoundException, SaveException {
+    public T update(T domainModel, boolean partial) {
         Objects.requireNonNull(domainModel,"model cannot be null");
 
         D entityToUpdate;
@@ -75,7 +75,7 @@ public abstract class GenericPersistencePortImpl<D,J extends JpaRepository<D,I>,
     }
 
     @Override
-    public void delete(I id) throws DeleteException {
+    public void delete(I id) {
         try {
             jpaRepository.deleteById(id);
         }catch (IllegalArgumentException e){

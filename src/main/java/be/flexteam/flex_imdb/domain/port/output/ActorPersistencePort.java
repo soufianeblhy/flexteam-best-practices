@@ -7,8 +7,21 @@ import be.flexteam.flex_imdb.domain.model.Actor;
 import java.util.Set;
 
 public interface ActorPersistencePort extends GenericPersistencePort<Actor, Integer> {
-    void addMovieForActor(Integer movieId, Integer actorId) throws NotFoundException, SaveException;
+    /**
+     * Add the movie for the actor
+     * @param actorId the actor id to add
+     * @param movieId the movie id you want to add the actor
+     * @throws NotFoundException actor or movie doesn't exist
+     * @throws SaveException not possible to add the movie for the actor
+     */
+    void addMovieForActor(Integer movieId, Integer actorId);
 
-    Set<Actor> findActorsForMovie(Integer movieId) throws NotFoundException;
+    /**
+     * Find all actors where the movie is present
+     * @param movieId the movie id that you want to retrieve the actors
+     * @return set of actors found or empty if no actors
+     * @throws NotFoundException the movie doesn't exist
+     */
+    Set<Actor> findActorsForMovie(Integer movieId);
 
 }

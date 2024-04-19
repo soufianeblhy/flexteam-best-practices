@@ -7,15 +7,48 @@ import be.flexteam.flex_imdb.domain.model.Identifier;
 
 import java.util.List;
 
+/**
+ * Service using for the CRUD operations
+ *
+ * @param <T> the domain model to use for the CRUD operations
+ * @param <I> the identifier type for the domain model
+ */
 public interface GenericServicePort<T extends Identifier<I>, I> {
 
+    /**
+     * Retrieve all instances
+     * @return
+     */
     List<T> getAll();
 
-    T get(I id) throws NotFoundException;
+    /**
+     * Retrieve instance from the identifier
+     * @param id the identifier
+     * @return the instance
+     * @throws NotFoundException the instance cannot be found
+     */
+    T get(I id);
 
-    T save(T domainModel) throws SaveException;
+    /**
+     * Save the instance in the system
+     * @param domainModel the instance
+     * @return the saved instance (can be changed)
+     * @throws SaveException the instance cannot be saved
+     */
+    T save(T domainModel);
 
-    T update(T domainModel, boolean partial) throws NotFoundException, SaveException;
+    /**
+     * Update the instance in the system
+     * @param domainModel the instance
+     * @param partial true if you want to update only no null field
+     *                or false if you want to update all fields (null or not null)
+     * @return the updated instance
+     */
+    T update(T domainModel, boolean partial);
 
-    void delete(I id) throws DeleteException;
+    /**
+     * Delete the instance in the system
+     * @param id the instance
+     */
+    void delete(I id);
 }

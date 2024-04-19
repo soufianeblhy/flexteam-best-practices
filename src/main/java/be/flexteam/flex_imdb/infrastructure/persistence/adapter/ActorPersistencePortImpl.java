@@ -47,7 +47,7 @@ public class ActorPersistencePortImpl extends GenericPersistencePortImpl<ActorEn
 
 
     @Override
-    public void addMovieForActor(Integer movieId, Integer actorId) throws NotFoundException, SaveException {
+    public void addMovieForActor(Integer movieId, Integer actorId) {
         try {
             if(!jpaRepository.existsById(actorId)){
                throw new NotFoundException("actorId=" + movieId + " cannot be found");
@@ -63,7 +63,7 @@ public class ActorPersistencePortImpl extends GenericPersistencePortImpl<ActorEn
     }
 
     @Override
-    public Set<Actor> findActorsForMovie(Integer movieId) throws NotFoundException {
+    public Set<Actor> findActorsForMovie(Integer movieId) {
         try {
             return movieEntityRepository
                     .findById(movieId)

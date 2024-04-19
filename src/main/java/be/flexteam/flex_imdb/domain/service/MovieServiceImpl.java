@@ -21,12 +21,12 @@ public class MovieServiceImpl extends GenericServiceImpl<Movie,Integer> implemen
 
 
     @Override
-    public void addActorForMovie(Integer actorId, Integer movieId) throws NotFoundException, SaveException {
+    public void addActorForMovie(Integer actorId, Integer movieId) {
         this.moviePersistencePort.addActorForMovie(actorId, movieId);
     }
 
     @Override
-    public Set<Movie> findMoviesForActor(Integer actorId) throws NotFoundException {
+    public Set<Movie> findMoviesForActor(Integer actorId) {
         return moviePersistencePort.findMoviesForActor(Objects.requireNonNull(actorId,"actorId cannot be null"));
     }
 }

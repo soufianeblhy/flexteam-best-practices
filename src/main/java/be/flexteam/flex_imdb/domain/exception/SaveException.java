@@ -3,7 +3,7 @@ package be.flexteam.flex_imdb.domain.exception;
 /**
  * Exception to prevent duplicate entity creation
  */
-public class SaveException extends GenericDomainException {
+public class SaveException extends UnexceptedDomainException {
 
     public SaveException(String message) {
         super(message);

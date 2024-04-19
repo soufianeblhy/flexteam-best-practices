@@ -24,22 +24,22 @@ public class GenericServiceImpl<T extends Identifier<I>,I> implements GenericSer
     }
 
     @Override
-    public T get(I id) throws NotFoundException {
+    public T get(I id) {
         return genericPersistencePort.get(Objects.requireNonNull(id,"id cannot be null"));
     }
 
     @Override
-    public T save(T domainModel) throws SaveException {
+    public T save(T domainModel) {
         return genericPersistencePort.save(Objects.requireNonNull(domainModel,"model cannot be null"));
     }
 
     @Override
-    public T update(T domainModel, boolean partial) throws SaveException, NotFoundException {
+    public T update(T domainModel, boolean partial) {
         return genericPersistencePort.update(Objects.requireNonNull(domainModel,"model cannot be null"), partial);
     }
 
     @Override
-    public void delete(I id) throws DeleteException {
+    public void delete(I id) {
         genericPersistencePort.delete(Objects.requireNonNull(id,"id cannot be null"));
     }
 
